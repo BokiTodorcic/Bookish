@@ -3,11 +3,12 @@ from bookish.app import db
 class BookCopy(db.Model):
     __tablename__ = 'copies_table'
 
-    ISBN = db.Column(db.Integer, db.ForeignKey("books_table.ISBN"), primary_key=True)
+    isbn = db.Column(db.Integer, db.ForeignKey("books_table.isbn"), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users_table.id"))
     due_date = db.Column(db.Date)
 
-    def __init__(self, user_id, due_date):
+    def __init__(self, isbn, user_id, due_date):
+        self.isbn = isbn
         self.user_id = user_id
         self.due_date = due_date
 
@@ -16,7 +17,7 @@ class BookCopy(db.Model):
 
     def serialize(self):
         return {
-            'ISBN': self.ISBN,
+            'isbn': self.isbn,
             'user_id': self.user_id,
             'due_date': self.due_date
         }

@@ -2,10 +2,8 @@ from bookish.app import db
 
 
 class User(db.Model):
-    # This sets the name of the table in the database
     __tablename__ = 'users_table'
 
-    # Here we outline what columns we want in our database
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String, nullable=False)

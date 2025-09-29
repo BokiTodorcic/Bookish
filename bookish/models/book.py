@@ -3,7 +3,7 @@ from bookish.app import db
 class Book(db.Model):
     __tablename__ = 'books_table'
 
-    ISBN = db.Column(db.Integer, primary_key=True)
+    isbn = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     author = db.Column(db.String)
 
@@ -12,11 +12,11 @@ class Book(db.Model):
         self.author = author
 
     def __repr__(self):
-        return '<ISBN {}>'.format(self.ISBN)
+        return '<isbn {}>'.format(self.isbn)
 
     def serialize(self):
         return {
-            'ISBN': self.ISBN,
+            'isbn': self.isbn,
             'title': self.title,
             'author': self.author
         }
