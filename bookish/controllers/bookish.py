@@ -1,6 +1,6 @@
 from flask import request
 from bookish.models.book import Book
-from bookish.models.bookCopy import BookCopy
+from bookish.models.bookInstance import BookInstance
 from bookish.models.user import User
 from bookish.models import db
 
@@ -44,12 +44,12 @@ def bookish_routes(app):
             results = [book.serialize() for book in books]
             return {"Books": results}
         
-    @app.route('/bookcopies', methods=['POST', 'GET'])
-    def handle_bookcopies():
+    @app.route('/bookinstances', methods=['POST', 'GET'])
+    def handle_bookinstances():
         if request.method == 'POST':
             if request.is_json:
                 data = request.get_json()
-                new_copy = BookCopy(isbn=data['isbn'], user_id=data.get('user_id'), due_date=data.get('due_date'))
+                new_copy = BookInstance(isbn=data['isbn'], user_id=data.get('user_id'), due_date=data.get('due_date'))
                 db.session.add(new_copy)
                 db.session.commit()
                 return {"message": "New book copy has been added successfully."}
@@ -57,7 +57,7 @@ def bookish_routes(app):
                 return {"error": "The request payload is not in JSON format"}
 
         elif request.method == 'GET':
-            copies = db.session.execute(db.select(BookCopy)).scalars().all()
+            copies = db.session.execute(db.select(BookInstance)).scalars().all()
             results = [copy.serialize() for copy in copies]
             return {"Copies": results}
 

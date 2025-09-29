@@ -1,7 +1,7 @@
 from bookish.app import db
 
-class BookCopy(db.Model):
-    __tablename__ = 'copies_table'
+class BookInstance(db.Model):
+    __tablename__ = 'Book_instances'
 
     isbn = db.Column(db.Integer, db.ForeignKey("books_table.isbn"), primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users_table.id"))
